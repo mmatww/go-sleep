@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/mmatww/go-sleep/sleep";
+
+package sleep;
+
+service GoSleep {
+  rpc Sleep (SleepRequest) returns (SleepReply) {}
+}
+
+message SleepRequest {
+  string id = 1;
+  int64 time = 2;
+}
+
+message SleepReply {
+  string id = 1;
+  int64 time = 2;
+}

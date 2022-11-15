@@ -1,0 +1,31 @@
+descriptor_version: "2.0"
+project:
+  team_id: CT-552
+  slack_channel: ""
+  pagerduty_team: ""
+apps:
+- name: go-sleep
+  build:
+  - name: go-sleep_build
+    type: docker
+    dockerfile: ./Dockerfile
+    repository: quay.io/marti_martinez/go-sleep
+    command: docker build -f ./Dockerfile
+    artifact_name: go-sleep
+  deploy:
+  - type: service
+    name: service-0
+    target_name: wek8s-dev-us-west
+    artifact_name: go-sleep
+    command: ./server
+    limits:
+      cpu: "2"
+      ram: "1024"
+    ports:
+      default: "7777"
+    health_check:
+      type: grpc
+    namespace: sre-mmtest
+    class: grpc
+    instances: 1
+    deploy_strategy: rolling
