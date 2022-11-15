@@ -6,14 +6,13 @@ import (
 	"fmt"
 	"log"
 	"net"
-    "time"
+	"time"
 
-	"google.golang.org/grpc"
 	pb "github.com/mmatww/go-sleep/sleep"
-    "google.golang.org/grpc/health"
-    healthpb "google.golang.org/grpc/health/grpc_health_v1"
-    "google.golang.org/grpc/reflection"
-
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/health"
+	healthpb "google.golang.org/grpc/health/grpc_health_v1"
+	"google.golang.org/grpc/reflection"
 )
 
 var (
@@ -26,7 +25,7 @@ type server struct {
 
 func (s *server) Sleep(ctx context.Context, in *pb.SleepRequest) (*pb.SleepReply, error) {
 	log.Printf("go-sleep request id '%v' time %d", in.GetId(), in.GetTime())
-    time.Sleep(time.Duration(in.GetTime()) * time.Millisecond)
+	time.Sleep(time.Duration(in.GetTime()) * time.Millisecond)
 	return &pb.SleepReply{Id: in.GetId(), Time: in.GetTime()}, nil
 }
 
@@ -39,11 +38,11 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterGoSleepServer(s, &server{})
-    reflection.Register(s)
+	reflection.Register(s)
 
-    healthSrv := health.NewServer()
-    healthSrv.SetServingStatus("grpc.health.v1.Health", healthpb.HealthCheckResponse_SERVING)
-    healthpb.RegisterHealthServer(s, healthSrv)
+	healthSrv := health.NewServer()
+	healthSrv.SetServingStatus("grpc.health.v1.Health", healthpb.HealthCheckResponse_SERVING)
+	healthpb.RegisterHealthServer(s, healthSrv)
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
