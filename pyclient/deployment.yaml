@@ -1,0 +1,183 @@
+---
+# sleep-10ms-external-python
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep-10ms-external-python
+  namespace: sre-mmtest
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sleep-10ms-external-python
+  template:
+    metadata:
+      labels:
+        app: sleep-10ms-external-python
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:latest
+          name: client
+          command:
+            - /app/env/bin/python
+          args:
+            - main.py
+            - --address
+            - sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443
+            - --label
+            - external-10ms-python
+            - --sleep
+            - "10"
+---
+# sleep-10ms-internal-python
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep-10ms-internal-python
+  namespace: sre-mmtest
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sleep-10ms-internal-python
+  template:
+    metadata:
+      labels:
+        app: sleep-10ms-internal-python
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:latest
+          name: client
+          command:
+            - /app/env/bin/python
+          args:
+            - main.py
+            - --address
+            - go-sleep-service-0-service.sre-mmtest.svc.cluster.local:7777
+            - --no-ssl
+            - --label
+            - internal-10ms-python
+            - --sleep
+            - "10"
+---
+# sleep-100ms-external-python
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep-100ms-external-python
+  namespace: sre-mmtest
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sleep-100ms-external-python
+  template:
+    metadata:
+      labels:
+        app: sleep-100ms-external-python
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:latest
+          name: client
+          command:
+            - /app/env/bin/python
+          args:
+            - main.py
+            - --address
+            - sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443
+            - --label
+            - external-100ms-python
+            - --sleep
+            - "100"
+---
+# sleep-100ms-internal-python
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep-100ms-internal-python
+  namespace: sre-mmtest
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sleep-100ms-internal-python
+  template:
+    metadata:
+      labels:
+        app: sleep-100ms-internal-python
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:latest
+          name: client
+          command:
+            - /app/env/bin/python
+          args:
+            - main.py
+            - --address
+            - go-sleep-service-0-service.sre-mmtest.svc.cluster.local:7777
+            - --no-ssl
+            - --label
+            - internal-100ms-python
+            - --sleep
+            - "100"
+---
+# sleep-1000ms-external-python
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep-1000ms-external-python
+  namespace: sre-mmtest
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sleep-1000ms-external-python
+  template:
+    metadata:
+      labels:
+        app: sleep-1000ms-external-python
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:latest
+          name: client
+          command:
+            - /app/env/bin/python
+          args:
+            - main.py
+            - --address
+            - sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443
+            - --label
+            - external-1000ms-python
+            - --sleep
+            - "1000"
+---
+# sleep-1000ms-internal-python
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep-1000ms-internal-python
+  namespace: sre-mmtest
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sleep-1000ms-internal-python
+  template:
+    metadata:
+      labels:
+        app: sleep-1000ms-internal-python
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:latest
+          name: client
+          command:
+            - /app/env/bin/python
+          args:
+            - main.py
+            - --address
+            - go-sleep-service-0-service.sre-mmtest.svc.cluster.local:7777
+            - --no-ssl
+            - --label
+            - internal-1000ms-python
+            - --sleep
+            - "1000"

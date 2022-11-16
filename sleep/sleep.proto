@@ -10,10 +10,13 @@ service GoSleep {
 
 message SleepRequest {
   string id = 1;
-  int64 time = 2;
+  string label = 2;
+  int64 sleep = 3;
 }
 
 message SleepReply {
   string id = 1;
-  int64 time = 2;
+  string label = 2;
+  int64 sleep = 3;
+  string timestamp = 4;
 }
