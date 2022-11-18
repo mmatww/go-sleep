@@ -1,0 +1,109 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pysleep-config
+  namespace: sre-mmtest
+  labels:
+    app: pysleep
+data:
+  pysleep-10-20.conf: |
+    {
+      "label": "pysleep-10-20",
+      "endpoints": [
+          {
+              "label": "internal",
+              "address": "go-sleep-service-0-service.sre-mmtest.svc.cluster.local:7777",
+              "ssl": false
+          },
+          {
+              "label": "external",
+              "address": "sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443"
+          }
+      ],
+      "sleep": {
+          "min": 10,
+          "max": 20
+      },
+      "requests": 0,
+      "pause": 0.0
+    }
+  pysleep-100-200.conf: |
+    {
+      "label": "pysleep-100-200",
+      "endpoints": [
+          {
+              "label": "internal",
+              "address": "go-sleep-service-0-service.sre-mmtest.svc.cluster.local:7777",
+              "ssl": false
+          },
+          {
+              "label": "external",
+              "address": "sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443"
+          }
+      ],
+      "sleep": {
+          "min": 100,
+          "max": 200
+      },
+      "requests": 0,
+      "pause": 0.0
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pysleep-10-20
+  namespace: sre-mmtest
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: pysleep-10-20
+  template:
+    metadata:
+      labels:
+        app: pysleep-10-20
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:0.2.2
+          name: pysleep
+          env:
+            - name: CONFIG_PATH
+              value: /etc/pysleep/pysleep-10-20.conf
+          volumeMounts:
+            - mountPath: /etc/pysleep
+              name: pysleep-config
+      volumes:
+        - name: pysleep-config
+          configMap:
+            name: pysleep-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pysleep-100-200
+  namespace: sre-mmtest
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: pysleep-100-200
+  template:
+    metadata:
+      labels:
+        app: pysleep-100-200
+    spec:
+      containers:
+        - image: quay.io/marti_martinez/pysleep:0.2.2
+          name: pysleep
+          env:
+            - name: CONFIG_PATH
+              value: /etc/pysleep/pysleep-100-200.conf
+          volumeMounts:
+            - mountPath: /etc/pysleep
+              name: pysleep-config
+      volumes:
+        - name: pysleep-config
+          configMap:
+            name: pysleep-config

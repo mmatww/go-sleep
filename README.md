@@ -19,7 +19,7 @@ PY_CLIENT: docker build . -t quay.io/marti_martinez/pysleep:latest && docker pus
 
 - Test once
 ```
-grpcurl -d '{"time": 100, "label":"test"}' sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443 sleep.GoSleep/Sleep
+grpcurl -d '{"sleep": 100, "label":"test"}' sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443 sleep.GoSleep/Sleep
 ```
 
 - Test w/ NLB

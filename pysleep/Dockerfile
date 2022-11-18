@@ -11,3 +11,4 @@ WORKDIR /app
 ADD *.py* .
 
 ENTRYPOINT ["/app/env/bin/python"]
+CMD ["pysleep.py"]

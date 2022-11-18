@@ -16,7 +16,7 @@ spec:
         app: sleep-10ms-external-python
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:latest
+        - image: quay.io/marti_martinez/pysleep:0.1.0
           name: client
           command:
             - /app/env/bin/python
@@ -46,7 +46,7 @@ spec:
         app: sleep-10ms-internal-python
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:latest
+        - image: quay.io/marti_martinez/pysleep:0.1.0
           name: client
           command:
             - /app/env/bin/python
@@ -77,7 +77,7 @@ spec:
         app: sleep-100ms-external-python
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:latest
+        - image: quay.io/marti_martinez/pysleep:0.1.0
           name: client
           command:
             - /app/env/bin/python
@@ -107,7 +107,7 @@ spec:
         app: sleep-100ms-internal-python
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:latest
+        - image: quay.io/marti_martinez/pysleep:0.1.0
           name: client
           command:
             - /app/env/bin/python
@@ -138,7 +138,7 @@ spec:
         app: sleep-1000ms-external-python
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:latest
+        - image: quay.io/marti_martinez/pysleep:0.1.0
           name: client
           command:
             - /app/env/bin/python
@@ -168,7 +168,7 @@ spec:
         app: sleep-1000ms-internal-python
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:latest
+        - image: quay.io/marti_martinez/pysleep:0.1.0
           name: client
           command:
             - /app/env/bin/python
