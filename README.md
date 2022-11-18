@@ -19,16 +19,16 @@ PY_CLIENT: docker build . -t quay.io/marti_martinez/pysleep:latest && docker pus
 
 - Test once
 ```
-grpcurl -d '{"sleep": 123, "label":"one-off"}' sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443 sleep.GoSleep/Sleep
+grpcurl -d '{"time": 100, "label":"test"}' sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443 sleep.GoSleep/Sleep
 ```
 
 - Test w/ NLB
 ```
-ghz -c 10 -n 100 --proto sleep/sleep.proto --call sleep.GoSleep/Sleep -d '{"label":"external-100ms", "sleep":100}' sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443
+ghz -c 10 -n 100 --proto sleep/sleep.proto --call sleep.GoSleep/Sleep -d '{"label":"external-100ms", "time":100}' sre-mmtest-go-sleep-service-0.grpc.phoenix.dev.wwrk.co:443
 ```
 
 - Test Service
 ```
 kk port-forward -n sre-mmtest svc/go-sleep-service-0-service 7777:7777
-ghz -c 10 -n 100 --insecure --proto sleep/sleep.proto --call sleep.GoSleep/Sleep -d '{"label":"service-100ms", "sleep":100}' localhost:7777
+ghz -c 10 -n 100 --insecure --proto sleep/sleep.proto --call sleep.GoSleep/Sleep -d '{"label":"service-100ms", "time":100}' localhost:7777
 ``` 

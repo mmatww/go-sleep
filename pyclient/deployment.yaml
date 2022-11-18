@@ -6,7 +6,7 @@ metadata:
   name: sleep-10ms-external-python
   namespace: sre-mmtest
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: sleep-10ms-external-python
@@ -36,7 +36,7 @@ metadata:
   name: sleep-10ms-internal-python
   namespace: sre-mmtest
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: sleep-10ms-internal-python
@@ -67,7 +67,7 @@ metadata:
   name: sleep-100ms-external-python
   namespace: sre-mmtest
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: sleep-100ms-external-python
@@ -97,7 +97,7 @@ metadata:
   name: sleep-100ms-internal-python
   namespace: sre-mmtest
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: sleep-100ms-internal-python
@@ -128,7 +128,7 @@ metadata:
   name: sleep-1000ms-external-python
   namespace: sre-mmtest
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: sleep-1000ms-external-python
@@ -158,7 +158,7 @@ metadata:
   name: sleep-1000ms-internal-python
   namespace: sre-mmtest
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: sleep-1000ms-internal-python

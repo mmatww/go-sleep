@@ -27,6 +27,6 @@ apps:
           type: grpc
         namespace: sre-mmtest
         class: grpc
-        instances: 4
+        instances: 1
         deploy_strategy: rolling
 
