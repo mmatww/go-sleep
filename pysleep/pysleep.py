@@ -51,28 +51,31 @@ def run(**kwargs):
             time.sleep(pause)
 
 def make_request(endpoints, label, counter, sleep):
-    responses = {}
     request_id = str(uuid.uuid4())
     random.shuffle(endpoints)
     for endpoint in endpoints:
-        start_stamp = datetime.now()
-        response = endpoint["stub"].Sleep(SleepRequest(label=f"{label}-{endpoint['label']}", sleep=sleep), metadata=[("x-request-id", request_id)])
-        end_stamp = datetime.now()
-        total_time_ms = int((end_stamp - start_stamp).total_seconds() * 1000)
-        responses[endpoint['label']] = {
-            "start": str(start_stamp),
-            "end": str(end_stamp),
-            "elapsed": {
-                "total": total_time_ms,
-                "net": total_time_ms - sleep
-            },
-            "response": {
-                "timestamp": response.timestamp,
-                "label": response.label,
-                "id": response.id
-            }
-        }
-    print(json.dumps({"id": request_id, "counter": counter, "sleep": sleep, "responses": responses}), file=sys.stderr)
+        request_label = f"{label}-{endpoint['label']}"
+        try:
+            start_stamp = datetime.now()
+            response = endpoint["stub"].Sleep(SleepRequest(label=request_label, sleep=sleep), metadata=[("x-request-id", request_id)])
+        except grpc.RpcError as err:
+            status = str(err.code()).replace("StatusCode.", "")
+        else:
+            status = "OK"
+        finally:
+            end_stamp = datetime.now()
+            total_time_ms = int((end_stamp - start_stamp).total_seconds() * 1000)
+            print(json.dumps({
+                "id": request_id,
+                "counter": counter,
+                "label": request_label,
+                "sleep_ms": sleep,
+                "total_ms": total_time_ms,
+                "net_ms": total_time_ms - sleep,
+                "start_time": str(start_stamp),
+                "end_time": str(end_stamp),
+                "response_status": status,
+            }), file=sys.stderr)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

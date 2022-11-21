@@ -66,8 +66,8 @@ spec:
         app: pysleep-10-20
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:0.2.2
-          name: pysleep
+        - image: quay.io/marti_martinez/pysleep:0.2.3
+          name: pysleep2
           env:
             - name: CONFIG_PATH
               value: /etc/pysleep/pysleep-10-20.conf
@@ -95,8 +95,8 @@ spec:
         app: pysleep-100-200
     spec:
       containers:
-        - image: quay.io/marti_martinez/pysleep:0.2.2
-          name: pysleep
+        - image: quay.io/marti_martinez/pysleep:0.2.3
+          name: pysleep2
           env:
             - name: CONFIG_PATH
               value: /etc/pysleep/pysleep-100-200.conf
