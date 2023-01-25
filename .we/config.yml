@@ -27,6 +27,22 @@ apps:
           type: grpc
         namespace: sre-mmtest
         class: grpc
-        instances: 4
+        instances: 2
+        deploy_strategy: rolling
+      - type: service
+        name: service-0
+        target_name: wek8s-dev-kenny-us-west
+        artifact_name: go-sleep
+        command: ./server
+        limits:
+          cpu: "2"
+          ram: "1024"
+        ports:
+          default: "7777"
+        health_check:
+          type: grpc
+        namespace: sre-mmtest
+        class: grpc
+        instances: 1
         deploy_strategy: rolling
 
